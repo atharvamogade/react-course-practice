@@ -113,10 +113,7 @@ function Footer() {
     <footer className="footer">
       {/* {new Date().toLocaleTimeString()} We are currently open! */}
       {isOpen ? (
-        <div className="order">
-          <p>We are open till {closeHour}:00, Come visit us or order online</p>
-          <button className="btn">order</button>
-        </div>
+        <Order closeHour={closeHour} />
       ) : (
         <p>
           We are happy to welcome you between {openHour}:00 and {closeHour}:00
@@ -126,6 +123,17 @@ function Footer() {
   );
 
   // return React.createElement("footer", null, "We are currently open!");
+}
+
+function Order(props) {
+  return (
+    <div className="order">
+      <p>
+        We are open till {props.closeHour}:00, Come visit us or order online
+      </p>
+      <button className="btn">order</button>
+    </div>
+  );
 }
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
