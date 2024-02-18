@@ -7,6 +7,15 @@ const messages = [
 ];
 
 export default function App() {
+  return (
+    <div>
+      <Steps />
+      <Steps />
+    </div>
+  );
+}
+
+function Steps() {
   const [step, setStep] = useState(1); // returns an array [intialState, functionToSetState]
   const [isOpen, setIsOpen] = useState(true);
 
@@ -22,7 +31,7 @@ export default function App() {
   }
 
   return (
-    <>
+    <div>
       <button
         className="close"
         onClick={() => setIsOpen((isCurrentlyOpen) => !isCurrentlyOpen)}
@@ -56,6 +65,6 @@ export default function App() {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 }
