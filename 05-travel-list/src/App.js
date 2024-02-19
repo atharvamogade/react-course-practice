@@ -22,6 +22,13 @@ function Logo() {
 function Form() {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
+  const [items, setItem] = useState([]);
+
+  function hanndleAddItem(item) {
+    // setItem(item => items.push(item));
+    // This will not work as it mutates the state vaiable item
+    setItem((items) => [...items, item]);
+  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -30,6 +37,8 @@ function Form() {
 
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
+
+    hanndleAddItem(newItem);
 
     setDescription("");
     setQuantity(1);
