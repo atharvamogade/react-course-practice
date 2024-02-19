@@ -5,19 +5,23 @@ const initialItems = [
 ];
 
 export default function App() {
-  const [items, setItem] = useState([]);
+  const [items, setItems] = useState([]);
 
   function hanndleAddItem(item) {
-    // setItem(item => items.push(item));
+    // setItems(item => items.push(item));
     // This will not work as it mutates the state vaiable item
-    setItem((items) => [...items, item]);
+    setItems((items) => [...items, item]);
+  }
+
+  function handleDeleteItem(id) {
+    setItems((items) => items.filter((item) => item.id !== id));
   }
 
   return (
     <div className="app">
       <Logo />
       <Form onAddItems={hanndleAddItem} />
-      <PackingList items={items} />
+      <PackingList items={items} onDeleteItems={handleDeleteItem} />
       <Stats />
     </div>
   );
@@ -69,26 +73,28 @@ function Form({ onAddItems }) {
   );
 }
 
-function PackingList({ items }) {
+function PackingList({ items, onDeleteItems }) {
   return (
     <div className="list">
       <ul>
         {items.map((item) => {
           // return <p>{item.description}</p>;
-          return <Item item={item} key={item.id} />;
+          return (
+            <Item item={item} onDeleteItems={onDeleteItems} key={item.id} />
+          );
         })}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, onDeleteItems }) {
   return (
     <li>
       <span style={item.packed ? { textDecoration: "line-through" } : {}}>
         {item.quantity} {item.description}
       </span>
-      <button>❌</button>
+      <button onClick={() => onDeleteItems(item.id)}>❌</button>
     </li>
   );
 }
