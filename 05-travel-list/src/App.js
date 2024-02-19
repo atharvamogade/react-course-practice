@@ -5,11 +5,19 @@ const initialItems = [
 ];
 
 export default function App() {
+  const [items, setItem] = useState([]);
+
+  function hanndleAddItem(item) {
+    // setItem(item => items.push(item));
+    // This will not work as it mutates the state vaiable item
+    setItem((items) => [...items, item]);
+  }
+
   return (
     <div className="app">
       <Logo />
-      <Form />
-      <PackingList />
+      <Form onAddItems={hanndleAddItem} />
+      <PackingList items={items} />
       <Stats />
     </div>
   );
@@ -19,16 +27,9 @@ function Logo() {
   return <h1>🌴 Far Away 🌴</h1>;
 }
 
-function Form() {
+function Form({ onAddItems }) {
   const [description, setDescription] = useState("");
   const [quantity, setQuantity] = useState(1);
-  const [items, setItem] = useState([]);
-
-  function hanndleAddItem(item) {
-    // setItem(item => items.push(item));
-    // This will not work as it mutates the state vaiable item
-    setItem((items) => [...items, item]);
-  }
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -38,7 +39,7 @@ function Form() {
     const newItem = { description, quantity, packed: false, id: Date.now() };
     console.log(newItem);
 
-    hanndleAddItem(newItem);
+    onAddItems(newItem);
 
     setDescription("");
     setQuantity(1);
@@ -68,11 +69,11 @@ function Form() {
   );
 }
 
-function PackingList() {
+function PackingList({ items }) {
   return (
     <div className="list">
       <ul>
-        {initialItems.map((item) => {
+        {items.map((item) => {
           // return <p>{item.description}</p>;
           return <Item item={item} key={item.id} />;
         })}
