@@ -24,7 +24,7 @@ root.render(
     <StarRating
       maxRating={3}
       color="blue"
-      size="24"
+      size={24}
       messages={["Bad", "Okay", "Good"]}
     />
     <Test />
